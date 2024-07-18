@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gra</title>
+</head>
+<body>
+    <h1>Gra Monopoly</h1>
+    <div>
+        <h3>Witaj, <span id="username"></span>!  - Twoje saldo: <span id="money"></span></h3>
+        Edycja konta z pomocą kart(szansa/kasa): 
+        <input type="number" id="editMoney" placeholder="Ile siana?" />
+        <button id="editButton">Zapisz</button>
+    </div>
+    Liczba aktualnie połączonych użytkowników: <span id="userCount">0</span> <br><br>
+    <h3><ul id="userList"></ul></h3>
+    <div>
+        <h3>Przelew </h3>
+        <select id="userSelect"></select>
+        <input type="number" id="transferAmount" placeholder="Ilość pieniędzy" />
+        <button id="transferButton">Wykonaj przelew</button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        const money = urlParams.get('money');
+
+        document.getElementById('username').innerText = username;
+        document.getElementById('money').innerText = money;
+        
+        socket.emit('setUser', {username, money});
+
+        socket.on('userCount', (data) => {
+            document.getElementById('userCount').innerText = data.count;
+            const userList = document.getElementById('userList');
+            const userSelect = document.getElementById('userSelect');
+            userList.innerHTML = '';
+            userSelect.innerHTML = '';
+            data.users.forEach(user => {
+                const li = document.createElement('li');
+                li.innerText = `${user.username} ---- STAN KONTA: ${user.money}`;
+                userList.appendChild(li);
+
+                if (user.username !== username) {
+                    const option = document.createElement('option');
+                    option.value = user.id;
+                    option.innerText = `${user.username}`;
+                    userSelect.appendChild(option);
+                }
+            });
+        });
+        document.getElementById('transferButton').addEventListener('click', () => {
+            const toUserId = document.getElementById('userSelect').value;
+            const amount = Number(document.getElementById('transferAmount').value);  // Ensure amount is a number
+            socket.emit('transferNumber', { fromUser: socket.id, toUserId, amount });
+        });
+
+        document.getElementById('editButton').addEventListener('click', () => {
+            const newMoney = Number(document.getElementById('editMoney').value);  // Ensure newMoney is a number
+            socket.emit('updateMoney', newMoney);
+        });
+
+        socket.on('error', (message) => {
+            alert(message);
+        });
+
+        socket.on('userCount', (data) => {
+            const currentUser = data.users.find(user => user.username === username);
+            if (currentUser) {
+                document.getElementById('money').innerText = currentUser.money;
+            }
+        });
+    </script>
+</body>
+</html>
