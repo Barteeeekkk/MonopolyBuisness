@@ -1,0 +1,94 @@
+body
+{
+	background-color: #c4cbc4;
+	color: #161616;
+    font-size: 17px;
+    margin: 10px;
+    margin-top: 0px;
+    font-family: Verdana;
+    font-weight: bold;
+}
+.login
+{
+ width: 340px;
+ background-color:  #cad8ca;
+ margin-left: auto;
+ margin-right: auto;
+ margin-bottom: auto;
+ margin-top: auto;
+ text-align: center;
+ margin-top: 50px;
+ border-radius: 20px;
+ box-shadow: 5px 5px 15px;
+ padding-top: 5px;
+}
+input
+{
+    border-radius: 5px;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+    width: 200px;
+    height: 25px;
+    text-align: center;
+}
+button{
+    background-color: #393838;
+    color: whitesmoke;
+    border-radius: 10px;
+    width: 160px;
+    height: 35px;
+    margin-bottom: 20px;
+    font-weight:bolder;
+}
+img{
+    width: 320px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.container
+{
+width: 340px ;
+background-color:  #cad8ca;
+border-radius: 20px;
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+margin-top: 15px;
+}
+
+li
+{
+    padding-bottom: 15px;
+    list-style-image: url(/logo2.svg);
+    text-align: left;
+    font-size: 20px;
+}
+.przelew{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e7ece7;
+    margin-top: 10px;
+    width: 320px;
+    box-shadow: 1px 1px 3px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+select{
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+.gracz{
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #e7ece7;
+    width: 320px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    box-shadow: 1px 1px 3px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+input, textarea, select {
+    font-size: 16px;
+    touch-action: manipulation;
+}

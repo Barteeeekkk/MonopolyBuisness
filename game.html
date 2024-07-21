@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gra</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-    <h1>Gra Monopoly</h1>
-    <div>
-        <h3>Witaj, <span id="username"></span>!  - Twoje saldo: <span id="money"></span></h3>
-        Edycja konta z pomocą kart(szansa/kasa): 
-        <input type="number" id="editMoney" placeholder="Ile siana?" />
-        <button id="editButton">Zapisz</button>
+    <div class="container">
+        <img src="/monopoly.svg">
+        <div class="gracz">
+            <h3>Gracz: <span id="username"></span></h3>
+       </div>
+       <div class="gracz">
+        <h3>Twoje saldo: <span id="money"></span></h3>
+   </div>
+        <div class="przelew">
+            <h3>Szansa/Kasa</h3>
+            <input type="number" id="editMoney" placeholder="Ile siana?" />
+            <button id="editButton">Zapisz</button>
+        </div>
+        <div class="przelew">
+            <h3>Przelew </h3>
+            <select id="userSelect"></select> <br>
+            <input type="number" id="transferAmount" placeholder="Ilość pieniędzy" />
+            <button id="transferButton">Wykonaj przelew</button>
+        </div>
+        Liczba aktualnie połączonych użytkowników: <span id="userCount">0</span> <br><br>
+        <div class="lista"><ul id="userList"></ul></div>   
     </div>
-    Liczba aktualnie połączonych użytkowników: <span id="userCount">0</span> <br><br>
-    <h3><ul id="userList"></ul></h3>
-    <div>
-        <h3>Przelew </h3>
-        <select id="userSelect"></select>
-        <input type="number" id="transferAmount" placeholder="Ilość pieniędzy" />
-        <button id="transferButton">Wykonaj przelew</button>
-    </div>
+    
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
@@ -41,7 +50,7 @@
             userSelect.innerHTML = '';
             data.users.forEach(user => {
                 const li = document.createElement('li');
-                li.innerText = `${user.username} ---- STAN KONTA: ${user.money}`;
+                li.innerText = `${user.username} -- ${user.money}`;
                 userList.appendChild(li);
 
                 if (user.username !== username) {
